@@ -1,18 +1,42 @@
+import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
+import { FormsModule }   from '@angular/forms';
+import { AppComponent }        from './app.component';
+import { HeroDetailComponent } from './hero-detail.component';
+import {HeroesComponent} from './heroes.component';
+import {HeroService} from './hero.service';
+import {RouterModule} from '@angular/router';
+import {DashboardComponent} from './dashbaord.component';
 
-import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  providers:[HeroService],
   imports: [
-  BrowserModule,
-  FormsModule
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot([
+    {
+      path: 'heroes',
+      component: HeroesComponent
+    },
+    {
+      path:'dashboard',
+      component:DashboardComponent
+    },
+    {
+      path:'',
+      redirectTo:'/dashboard',
+      pathMatch:'full'
+    }
+
+  ])
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    HeroDetailComponent,
+    HeroesComponent,
+    DashboardComponent
+  ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
