@@ -7,15 +7,20 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'hero-detail',
-  template: 'hero-detail.component.html'
+  templateUrl: './hero-detail.component.html',
+  styleUrls: ['./hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit{
+
+  hero: Hero;
 
   constructor(
     private heroService: HeroService,
     private route: ActivatedRoute,
     private location: Location
-  ) {}
+  ){ 
+    
+  }
 
   ngOnInit(){
     this.route.paramMap
@@ -26,5 +31,9 @@ export class HeroDetailComponent implements OnInit{
     this.location.back();
   }
 
-  @Input() hero: Hero;
+  save(): void {
+    this.heroService.update(this.hero)
+      .then(() => this.goBack());
+  }
+
 }

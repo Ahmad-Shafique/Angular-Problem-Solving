@@ -6,34 +6,24 @@ import { HeroDetailComponent } from './hero-detail.component';
 import {HeroesComponent} from './heroes.component';
 import {HeroService} from './hero.service';
 import {RouterModule} from '@angular/router';
-import {DashboardComponent} from './dashbaord.component';
+import {DashboardComponent} from './dashboard.component';
+import {AppRoutingModule} from './app-routing.module';
+import {HttpModule} from '@angular/http';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
 
 
 @NgModule({
-  providers:[HeroService],
+  providers:[
+    HeroService
+  ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot([
-    {
-      path: 'heroes',
-      component: HeroesComponent
-    },
-    {
-      path:'dashboard',
-      component:DashboardComponent
-    },
-    {
-      path:'',
-      redirectTo:'/dashboard',
-      pathMatch:'full'
-    },
-    {
-      path: '/detail/:id',
-      component: HeroDetailComponent,
-    }
+    AppRoutingModule,
+    HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService)
 
-  ])
   ],
   declarations: [
     AppComponent,
@@ -41,6 +31,8 @@ import {DashboardComponent} from './dashbaord.component';
     HeroesComponent,
     DashboardComponent
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ 
+    AppComponent 
+  ]
 })
 export class AppModule { }
